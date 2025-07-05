@@ -7,6 +7,7 @@
 #define MAX_ENIGMA 128
 #define MAX_RESPOSTA 64
 #define MAX_SALAS 10
+#include "Grafo.h"
 
 // Estrutura de Item
 typedef struct {
@@ -38,5 +39,33 @@ typedef struct {
     int qtd_inventario;
 } Jogador;
 
-#endif // ADVENTURE_H
+// Funcoes de inicializacao para cada nivel
+typedef struct {
+    Grafo* grafo;
+    Sala* salas;
+    Enigma* enigmas;
+    int num_salas;
+    int num_enigmas;
+    int sala_saida;
+} Labirinto;
 
+// Funções básicas
+void inicializa_salas(Sala salas[], Enigma enigmas[]);
+void mostrar_sala(Sala *sala);
+void coletar_item(Sala *sala, Jogador *jogador, const char *nome_item);
+void resolver_enigma(Sala *sala);
+void mostrar_inventario(Jogador *jogador);
+int mover(Grafo *gr, int sala_atual, const char *direcao);
+Labirinto inicializa_facil();
+Labirinto inicializa_medio();
+Labirinto inicializa_dificil();
+
+// Novas funções para encapsulamento
+Jogador inicializa_jogador();
+Labirinto inicializa_labirinto(int nivel);
+void processar_comando(char *comando, Labirinto *lab, Jogador *jogador);
+int verificar_saida(Labirinto *lab, Jogador *jogador);
+void mostrar_ajuda();
+void liberar_labirinto(Labirinto *lab);
+
+#endif // ADVENTURE_H
